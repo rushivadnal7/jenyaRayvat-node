@@ -34,7 +34,7 @@ export const register = async (req, res) => {
 
         const token = generateToken(user._id);
         res.json({
-            success: false, message: 'user created successfully', token
+            success: true, message: 'user created successfully', token
         })
 
     } catch (error) {

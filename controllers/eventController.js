@@ -77,3 +77,39 @@ export const pagination = async (req, res) => {
         res.json({ success: false, message: `Error Occured : ${error.message}` })
     }
 }
+
+
+export const updateEvent = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, date, capacity } = req.body;
+
+        const event = await eventModel.findByIdAndUpdate(id, { name, date, capacity }, { new: true });
+
+        if (!event) {
+            return res.status(404).json({ success: false, message: "Event not found" });
+        }
+
+        res.json({ success: true, message: "Event updated", event });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: `Error Occurred: ${error.message}` });
+    }
+};
+
+export const deleteEvent = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const event = await eventModel.findByIdAndDelete(id);
+
+        if (!event) {
+            return res.status(404).json({ success: false, message: "Event not found" });
+        }
+
+        res.json({ success: true, message: "Event deleted successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: `Error Occurred: ${error.message}` });
+    }
+};
