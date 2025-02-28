@@ -59,17 +59,17 @@ export const filterEvent = async (req, res) => {
 
 export const pagination = async (req, res) => {
     try {
-        const { page, limit } = req.query;
+        let { page, limit } = req.query;
 
         page = parseInt(page) || 1;
 
         limit = parseInt(page) || 10;
 
-        const skip = (page - 1) * limit;
+        let skip = (page - 1) * limit;
 
-        const events = await eventModel.find().skip(skip).limit(limit);
+        let events = await eventModel.find().skip(skip).limit(limit);
 
-        const totalEvents = await eventModel.countDocuments();
+        let totalEvents = await eventModel.countDocuments();
 
         res.json({ events, totalEvents, page, limit, skip, totalPages: Math.ceil(totalEvents / limit) });
     } catch (error) {

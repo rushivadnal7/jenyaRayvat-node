@@ -44,7 +44,7 @@ export const register = async (req, res) => {
 }
 
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET_KEY);
+    return jwt.sign({ id }, process.env.JWT_SECRET_KEY , { expiresIn: "1h" });
 }
 
 
